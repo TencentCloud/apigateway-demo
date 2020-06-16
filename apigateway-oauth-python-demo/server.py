@@ -26,7 +26,7 @@ def hello():
     return token
 
 @route('/code')
-def hello():
+def code():
     # todo   produce the code
     return "123456"
 
