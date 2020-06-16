@@ -1,0 +1,17 @@
+1 下载后，在当前路径下执行 sh compile.sh，将会生成可执行文件token 
+2 当前路径下执行文件 ./bin/token 正常运行的话将产生以下内容，监听了8080端口，同时输出 json格式的公钥信息，该信息需要配置API网关的授权API
+```
+公钥：
+ {
+  "kty": "RSA",
+  "e": "AQAB",
+  "n": "4ar74SVonW5SIyXRuJXCGARjfoqIawMjw9FOyYMubqpvaPLBF_LUG3yGPN59d-bnsKsD6yczYTZMKMczYFHSMPguCm7RDR3LTPKKqllCH2uHjbZyZuHz3p3QT9ul608845TZ6xb0yXrVB8UaLv_bR89ukxDaCt1PRVJ87nKEer3iCuxvKTq5ApP69qUGxXg21x6THff1ah3sHYj1BbmTWvJ00uOztzbBp42s0U1zFz7ZWOYaQWE0k4kZLXxinBv5yfBllUdGU7TlU4BR5rl7tZ3VEXJH4EC4O6HNAQrqHrguVJaIAR-vP97_YAJF8e9eFfS-hw8gYwqOaEZ29gwIwQ"
+}
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ - using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /token                    --> main.setupRouter.func1 (3 handlers)
+[GIN-debug] Listening and serving HTTP on :8080
