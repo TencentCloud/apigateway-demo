@@ -1,0 +1,44 @@
+apigw + scf websocket 的场景 
+准备工作： 无
+	1个数据库实例，本示例中已经提供了一个可用的公网访问mysql,可以测试使用
+	控制台创建四个云函数，python2.7 运行环境，直接 ctrl+c  ctrl+v
+		注册函数 scf_ws_register.py
+		传输函数 scf_ws_trans.py
+		清理函数 scf_ws_unregister.py
+		主动推送函数  scf_ws_push.py
+	控制台创建一个API 网关实例
+	验证控制台：http://websocket-test.com/
+	
+操作步骤：
+1. 创建4个云函数，名字可以为以上四个文件名(去掉.py)，内容为相应文件里面的内容
+2. 创建一个API网关的api，后端选择cloudFunction,获取到apiid，第三步会用到，创建完发布API网关服务
+   (传输函数选择 scf_ws_trans,注册函数选择 scf_ws_register,清理函数选择 scf_ws_unregister)
+3. 配置云函数的环境变量,key为apiid，value为第二步中创建的 apiid值，类似与api- 
+   传输函数 scf_ws_trans
+   清理函数 scf_ws_unregister
+   推送函数 scf_ws_push
+
+   
+附：DB创建方式，普通的websocket的客户端和服务端
+DB  
+CREATE DATABASE `apigw_demo` /*!40100 DEFAULT CHARACTER SET utf8 */
+ CREATE TABLE `ConnectionID_List` (
+  `ConnectionID` varchar(50) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ConnectionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+
+客户端 注意是python3   需安装 websockets 库 ，直接pip3 install websockets 
+客户端请求的时候，ws_client.py  中 uri 地址直接写  apigw的地址即可 
+
+	成功的调用：
+		python3  ws_client.py 
+		client: hello world
+		server: hello world | (===Online people:4===) | connectionId CoQdJZAfLdAvVAkrrZlr5A==
+		
+ws_server.py 是一个 ws服务器，可以直接启动  和 apigw + scf 本身无关
+
+
+
