@@ -3,6 +3,7 @@
 import sys
 import logging
 import psycopg2
+import os
 print('Loading function')
 
 logger = logging.getLogger()
