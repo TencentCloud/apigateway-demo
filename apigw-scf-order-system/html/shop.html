@@ -14,7 +14,7 @@
             if ("WebSocket" in window)
             {
                // 打开一个 web socket
-               var ws = new WebSocket("ws://xxxx.apigw.tencentcs.com/pgws");
+               var ws = new WebSocket("ws://xxxx.gz.apigw.tencentcs.com/pgws");
                var msgWrapper = document.getElementById('message-wrapper')
                
                // 连接建立后的回调函数
@@ -67,7 +67,13 @@
    <body>
       <h1>厨房订单系统</h1>
 
-      <label>店铺名: <input type="text" placeholder="店铺名" id="shopName"></label>
+      <label>
+         店铺名:
+         <select id="shopName">
+            <option value="shop1">shop1</option>
+            <option value="shop2">shop2</option>
+         </select>
+      </label>
       <br/>
       <br/>
       <button onclick="WebSocketTest()">开始营业</button>
