@@ -10,13 +10,13 @@ logger = logging.getLogger()
 def main_handler(event, context):
     logger.info("start main handler")
 
-    host='xxxx'
-    port= xxxx
-    user='xxxx'
-    password='xxxx'
-    dbname='xxxx'
+    Host = os.getenv('host')
+    Port = os.getenv('port')
+    User = os.getenv('user')
+    Password = os.getenv('password')
+    DB = os.getenv('dbname')
 	
-    conn = psycopg2.connect(database=dbname, user=user , password=password, host=host, port=port)
+    conn = psycopg2.connect(database=DB, user=User, password=Password, host=Host, port=Port)
     print "Opened database successfully"
 
     cur = conn.cursor()

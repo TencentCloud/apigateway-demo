@@ -15,11 +15,11 @@ logger = logging.getLogger()
 logger.setLevel(level=logging.INFO)
 
 
-Host = 'xxxx'
-Port = xxxx
-User = 'xxxx'
-Password = 'xxxx'
-DB = 'xxxx'
+Host = os.getenv('host')
+Port = os.getenv('port')
+User = os.getenv('user')
+Password = os.getenv('password')
+DB = os.getenv('dbname')
 
 
 

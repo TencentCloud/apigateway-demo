@@ -13,11 +13,11 @@ logger = logging.getLogger()
 logger.setLevel(level=logging.INFO)
 
 
-Host = 'xxxx'
-Port = xxx
-User = 'xxxx'
-Password = 'xxx'
-DB = 'xxxx'
+Host = os.getenv('host')
+Port = os.getenv('port')
+User = os.getenv('user')
+Password = os.getenv('password')
+DB = os.getenv('dbname')
 
 # Changing the time zone to Beijing. 更改时区为北京时区
 tz = pytz.timezone('Asia/Shanghai')

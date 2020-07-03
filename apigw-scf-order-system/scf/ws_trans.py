@@ -20,11 +20,11 @@ apiid = os.getenv('apiid')
 sendbackHost = "http://set-websocket.cb-common.apigateway.tencentyun.com/"+apiid
 
 
-Host = 'xxxx'
-Port = xxx
-User = 'xxxx'
-Password = 'xxxx'
-DB = 'xxx'
+Host = os.getenv('host')
+Port = os.getenv('port')
+User = os.getenv('user')
+Password = os.getenv('password')
+DB = os.getenv('dbname')
 
 
 

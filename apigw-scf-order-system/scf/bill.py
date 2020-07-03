@@ -44,13 +44,13 @@ def main_handler(event, context):
         res['error_msg'] = 'telephone or username or shop name is empty'
         return res
 
-    host = 'xxxx'
-    port = 
-    user = 'xxx'
-    password = 'xxxx'
-    dbname = 'xxxx'
+    Host = os.getenv('host')
+    Port = os.getenv('port')
+    User = os.getenv('user')
+    Password = os.getenv('password')
+    DB = os.getenv('dbname')
 
-    conn = psycopg2.connect(database=dbname, user=user, password=password, host=host, port=port)
+    conn = psycopg2.connect(database=DB, user=User, password=Password, host=Host, port=Port)
 
     cur = conn.cursor()
 
