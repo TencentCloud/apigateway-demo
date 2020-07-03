@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title>厨房订单系统</title>
+       <script type="text/javascript">
+         function WebSocketTest()
+         {
+			var shopName = document.querySelector('#shopName').value
+            if (!shopName) {
+               alert('请输入店铺名')
+               return
+            }
+            if ("WebSocket" in window)
+            {
+               // 打开一个 web socket
+               var ws = new WebSocket("ws://xxxx.apigw.tencentcs.com/pgws");
+               var msgWrapper = document.getElementById('message-wrapper')
+               
+               // 连接建立后的回调函数
+               ws.onopen = function()
+               {
+               // Web Socket 已连接上，使用 send() 方法发送数据
+				 
+                  ws.send(shopName);
+
+                  var p = document.createElement('p')
+                  p.innerText = "商家：" + shopName + " 开始营业"
+                  // alert("正在发送：admin:123456");
+
+                  msgWrapper.appendChild(p)
+
+               };
+               
+               // 接收到服务器消息后的回调函数
+               ws.onmessage = function (evt) 
+               { 
+                  var received_msg = evt.data;
+                  if (received_msg.indexOf("sorry") == -1) {
+                    var p = document.createElement('p')
+                    p.innerText = "收到消息：" + received_msg
+                    msgWrapper.appendChild(p)
+                  }
+                  
+               };
+               
+               // 连接关闭后的回调函数
+               ws.onclose = function()
+               { 
+                  var p = document.createElement('p')
+                  p.innerText = "连接已关闭..."
+                  msgWrapper.appendChild(p)
+                  // 关闭 websocket
+                  // alert("连接已关闭..."); 
+               };
+            }
+            else
+            {
+               // 浏览器不支持 WebSocket
+               alert("您的浏览器不支持 WebSocket!");
+            }
+         }
+         
+      </script>
+   </head>
+
+   <body>
+      <h1>厨房订单系统</h1>
+
+      <label>店铺名: <input type="text" placeholder="店铺名" id="shopName"></label>
+      <br/>
+      <br/>
+      <button onclick="WebSocketTest()">开始营业</button>
+
+      <div id="message-wrapper">
+         
+      </div>
+
+   </body>
+</html>

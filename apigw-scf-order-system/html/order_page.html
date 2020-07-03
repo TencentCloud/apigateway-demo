@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手机客户端顾客</title>
+</head>
+<body>
+<h1>手机客户端顾客</h1>
+<h3>个人信息</h3>
+<form>
+    <div>
+        <input id="user" type="text" placeholder="姓名" />
+        <input id="addr" type="text" placeholder="地址" />
+    </div>
+    <div>
+        <input id="telephone" type="text" placeholder="电话" />
+    </div>
+</form>
+<h3>你想点什么菜？</h3>
+<div id="shop"></div>
+<br/>
+<br/>
+<button onclick="order()">下单</button>
+
+
+</body>
+<script>
+
+fetch('http://xxxx.apigw.tencentcs.com/get_shop_info')
+  .then(res => res.json())
+  .then(list => {
+    Object.entries(list).map(([key, menus]) => {
+      const shop = document.createElement('div')
+      const menuList = menus.map(item => {
+        return `<div><label><input type="checkbox" data-shop="${key}" data-dish="${item.dish}"> ${item.dish} ${item.price}元</label></div>`
+      })
+      shop.innerHTML = `
+        <h4>${key}</h4>
+        ${menuList.join('')}
+      `
+      document.querySelector('#shop').appendChild(shop)
+    })
+  })
+
+function order() {
+  const user = document.querySelector('#user').value
+  const addr = document.querySelector('#addr').value
+  const telephone = document.querySelector('#telephone').value
+  if (!user) {
+    alert('请输入姓名')
+    return
+  }
+  if (!addr) {
+    alert('请输入地址')
+    return
+  }
+  if (!telephone) {
+    alert('请输入电话')
+    return
+  }
+
+  const checkboxes = Array.from(document.querySelectorAll('input[type=checkbox]'))
+  const checked = checkboxes.filter(item => item.checked)
+  if (checked.length === 0) {
+    alert('请选择菜品')
+    return
+  }
+
+  Promise.all(checked.map(item => {
+    return bill({
+      "user": user,
+      "addr": addr,
+      "telephone": telephone,
+      "shop_name": item.dataset.shop,
+      "dish": item.dataset.dish
+    })
+  })).then(res => {
+    if (res.every(item => item.error_code === 0)) {
+      alert('下单成功')
+    } else {
+      alert('下单失败')
+    }
+  })
+
+}
+
+function bill(dish) {
+  return fetch('http://xxxx.apigw.tencentcs.com/bill', {
+    body: JSON.stringify(dish),
+    method: 'POST'
+  }).then(res => res.json())
+}
+
+</script>
+</html>
