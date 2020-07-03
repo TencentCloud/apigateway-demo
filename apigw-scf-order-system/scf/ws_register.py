@@ -6,6 +6,7 @@ import psycopg2
 import logging
 import sys
 import pytz
+import os
 
 
 print('Start Register function')
