@@ -1,23 +1,33 @@
 from datetime import datetime
 from flask import request
 import python_jwt as jwt, jwcrypto.jwk as jwk, datetime
-from wtforms import TextField, validators, SubmitField
+from wtforms import TextField, validators, SubmitField, PasswordField
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-
+from wtforms.widgets import PasswordInput
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 Bootstrap(app)
 
+
+class MyPasswordField(PasswordField):
+    widget = PasswordInput(hide_value=False)
+
+
 class LoginForm(FlaskForm):
     username = TextField('Username:', validators=[validators.required()])
-    password = TextField('Password:', validators=[validators.required()])
+    password = MyPasswordField('Password:', validators=[validators.required()])
     submit = SubmitField('Submit')
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def welcome():
+    return "Welcome to APIGateway"
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if request.method == 'POST':
