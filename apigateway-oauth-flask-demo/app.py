@@ -13,11 +13,11 @@ Bootstrap(app)
 
 class LoginForm(FlaskForm):
     username = TextField('Username:', validators=[validators.required()])
-    password = TextField('Password:', validators=[validators.required()])
+    password = PasswordFiled ('Password:', validators=[validators.required()])
     submit = SubmitField('Submit')
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if request.method == 'POST':
