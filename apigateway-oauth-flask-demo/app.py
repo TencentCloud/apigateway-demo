@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 Bootstrap(app)
 
+
 class MyPasswordField(PasswordField):
     widget = PasswordInput(hide_value=False)
 
@@ -19,6 +20,11 @@ class LoginForm(FlaskForm):
     username = TextField('Username:', validators=[validators.required()])
     password = MyPasswordField('Password:', validators=[validators.required()])
     submit = SubmitField('Submit')
+
+
+@app.route('/')
+def welcome():
+    return "Welcome to APIGateway"
 
 
 @app.route('/login', methods=['GET', 'POST'])
